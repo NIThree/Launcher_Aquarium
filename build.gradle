@@ -1,9 +1,17 @@
 plugins {
     id 'idea'
-    id 'java-library'
-    id 'application'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'java'
+    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.github.NIThree.AquariumLauncher.Main'
+        )
+    }
 }
 
 apply plugin: 'org.openjfx.javafxplugin'
@@ -13,49 +21,37 @@ version '1.0.0'
 
 repositories {
     mavenCentral()
-    maven{
+    maven {
+        url = 'https://jitpack.io/'
+        name = 'JitPack'
+    }
+    maven {
         url = 'https://litarvan.github.io/maven'
         name = 'LitarvanMaven'
-    }
-
-    maven {
-        url = 'https://jitpack.io'
-        name = 'JitPack'
     }
 }
 
 dependencies {
     implementation 'fr.litarvan:openauth:1.1.6'
-    implementation 'fr.flowarg:materialdesignfontfx:7.2.96-2'
+    implementation 'de.jensd:fontawesomefx-fontawesome:4+'
 
-    implementation 'fr.flowarg:flowupdater:1.8.+'
-    implementation 'fr.flowarg:openlauncherlib:3.2.6'
+    implementation 'fr.flowarg:flowupdater:1.8+'
+    implementation 'fr.flowarg:flowupdater-curseforgeplugin:2+'
+    implementation 'fr.flowarg:flowupdater-optifineplugin:2+'
+    implementation 'fr.flowarg:openlauncherlib:3+'
 
     implementation 'com.github.goxr3plus:FX-BorderlessScene:4+'
     implementation 'com.github.oshi:oshi-core:5+'
-
 }
 
 javafx {
-    version = '17.0.6'
-    modules = ['javafx.controls']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.web', 'javafx.swing']
 }
 
 application {
-    getMainClass().set('com.github.NIThree.AquariumLauncher.Main')
+    getMainClass().set('com.github.NIThree.Aquarium.Main')
 }
 
 compileJava {
     options.encoding = "UTF-8"
-}
-
-jar{
-    manifest {
-        attributes 'Main-Class': 'com.github.NIThree.AquariumLauncher.Main'
-    }
-    from {
-        configurations.compileClasspath.collect{
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
 }
