@@ -3,21 +3,20 @@ package com.github.NIThree.AquariumLauncher.ui.panels.pages.content;
 import com.github.NIThree.AquariumLauncher.Launcher;
 import com.github.NIThree.AquariumLauncher.game.MinecraftInfos;
 import com.github.NIThree.AquariumLauncher.ui.PanelManager;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import fr.flowarg.flowupdater.FlowUpdater;
+import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
-import fr.flowarg.flowupdater.download.json.CurseModPackInfo;
 import fr.flowarg.flowupdater.download.json.Mod;
-import fr.flowarg.flowupdater.utils.UpdaterOptions;
+import fr.flowarg.flowupdater.utils.ModFileDeleter;
 import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
 import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
-import fr.theshark34.openlauncherlib.external.ExternalLaunchProfile;
-import fr.theshark34.openlauncherlib.external.ExternalLauncher;
-import fr.theshark34.openlauncherlib.minecraft.*;
+import fr.flowarg.materialdesignfontfx.MaterialDesignIcon;
+import fr.flowarg.materialdesignfontfx.MaterialDesignIconView;
+import fr.flowarg.openlauncherlib.NoFramework;
+import fr.theshark34.openlauncherlib.minecraft.GameFolder;
 import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -27,9 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import org.jetbrains.annotations.NotNull;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -89,7 +86,7 @@ public class Home extends ContentPanel {
     private void showPlayButton() {
         boxPane.getChildren().clear();
         Button playBtn = new Button("Jouer");
-        FontAwesomeIconView playIcon = new FontAwesomeIconView(FontAwesomeIcon.GAMEPAD);
+        final var playIcon = new MaterialDesignIconView<>(MaterialDesignIcon.G.GAMEPAD);
         playIcon.getStyleClass().add("play-icon");
         setCanTakeAllSize(playBtn);
         setCenterH(playBtn);
@@ -106,7 +103,7 @@ public class Home extends ContentPanel {
         setProgress(0, 0);
         boxPane.getChildren().addAll(progressBar, stepLabel, fileLabel);
 
-        Platform.runLater(() -> new Thread(this::update).start());
+        new Thread(this::update).start();
     }
 
     public void update() {
@@ -123,14 +120,14 @@ public class Home extends ContentPanel {
                 });
             }
 
-            /*@Override
-            public void update(long downloaded, long max) {
+            @Override
+            public void update(DownloadList.DownloadInfo info) {
                 Platform.runLater(() -> {
-                    percentTxt = decimalFormat.format(downloaded * 100.d / max) + "%";
+                    percentTxt = decimalFormat.format(info.getDownloadedBytes() * 100.d / info.getTotalToDownloadBytes()) + "%";
                     setStatus(String.format("%s (%s)", stepTxt, percentTxt));
-                    setProgress(downloaded, max);
+                    setProgress(info.getDownloadedBytes(), info.getTotalToDownloadBytes());
                 });
-            }*/
+            }
 
             @Override
             public void onFileDownloaded(Path path) {
@@ -146,13 +143,14 @@ public class Home extends ContentPanel {
                     .withName(MinecraftInfos.GAME_VERSION)
                     .build();
 
-            @NotNull List<CurseFileInfo> curseMods = CurseModPackInfo.getFilesFromJson(MinecraftInfos.CURSE_MODS_LIST_URL);
+            List<CurseFileInfo> curseMods = CurseFileInfo.getFilesFromJson(MinecraftInfos.CURSE_MODS_LIST_URL);
             List<Mod> mods = Mod.getModsFromJson(MinecraftInfos.MODS_LIST_URL);
 
             final AbstractForgeVersion forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
                     .withForgeVersion(MinecraftInfos.FORGE_VERSION)
                     .withCurseMods(curseMods)
                     .withMods(mods)
+                    .withFileDeleter(new ModFileDeleter(true))
                     .build();
 
             final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
@@ -160,47 +158,38 @@ public class Home extends ContentPanel {
                     .withModLoaderVersion(forge)
                     .withLogger(Launcher.getInstance().getLogger())
                     .withProgressCallback(callback)
-                    .withUpdaterOptions(UpdaterOptions.DEFAULT)
                     .build();
 
             updater.update(Launcher.getInstance().getLauncherDir());
-            this.startGame(updater.getModLoaderVersion().toString());
             this.startGame(updater.getVanillaVersion().getName());
-        } catch (Exception exception) {
-            Launcher.getInstance().getLogger().err(exception.toString());
-            exception.printStackTrace();
-            Platform.runLater(() -> panelManager.getStage().show());
+        } catch (Exception e) {
+            Launcher.getInstance().getLogger().printStackTrace(e);
+            Platform.runLater(() -> this.panelManager.getStage().show());
         }
     }
 
     public void startGame(String gameVersion) {
-        GameInfos infos = new GameInfos(
-                MinecraftInfos.SERVER_NAME,
-                true,
-                new GameVersion(gameVersion, MinecraftInfos.OLL_GAME_TYPE.setNFVD(MinecraftInfos.OLL_FORGE_DISCRIMINATOR)),
-                new GameTweak[]{}
-        );
-
         try {
-            ExternalLaunchProfile profile = MinecraftLauncher.createExternalProfile(infos, GameFolder.FLOW_UPDATER_1_19_SUP, Launcher.getInstance().getAuthInfos());
-            profile.getVmArgs().add(this.getRamArgsFromSaver());
-            ExternalLauncher launcher = new ExternalLauncher(profile);
+            NoFramework noFramework = new NoFramework(
+                    Launcher.getInstance().getLauncherDir(),
+                    Launcher.getInstance().getAuthInfos(),
+                    GameFolder.FLOW_UPDATER
+            );
 
-            Platform.runLater(() -> panelManager.getStage().hide());
+            noFramework.getAdditionalVmArgs().add(this.getRamArgsFromSaver());
 
-            Process p = launcher.launch();
+            Process p = noFramework.launch(gameVersion, MinecraftInfos.FORGE_VERSION.split("-")[1], NoFramework.ModLoader.FORGE);
 
             Platform.runLater(() -> {
                 try {
                     p.waitFor();
                     Platform.exit();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Launcher.getInstance().getLogger().printStackTrace(e);
                 }
             });
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            Launcher.getInstance().getLogger().err(exception.toString());
+        } catch (Exception e) {
+            Launcher.getInstance().getLogger().printStackTrace(e);
         }
     }
 
@@ -242,8 +231,11 @@ public class Home extends ContentPanel {
         MODS("Téléchargement des mods..."),
         EXTERNAL_FILES("Téléchargement des fichier externes..."),
         POST_EXECUTIONS("Exécution post-installation..."),
-        END("Finit !");
-        String details;
+        MOD_LOADER("Installation du mod loader..."),
+        INTEGRATION("Intégration des mods..."),
+        END("Fini !");
+
+        final String details;
 
         StepInfo(String details) {
             this.details = details;
