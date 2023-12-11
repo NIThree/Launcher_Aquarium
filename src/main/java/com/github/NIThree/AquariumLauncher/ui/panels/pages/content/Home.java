@@ -29,6 +29,9 @@ import javafx.scene.layout.RowConstraints;
 
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Home extends ContentPanel {
@@ -176,7 +179,9 @@ public class Home extends ContentPanel {
                     GameFolder.FLOW_UPDATER
             );
 
+            noFramework.getAdditionalArgs().addAll(Arrays.asList("--quickPlayMultiplayer", MinecraftInfos.SERVER_URL));
             noFramework.getAdditionalVmArgs().add(this.getRamArgsFromSaver());
+
 
             Process p = noFramework.launch(gameVersion, MinecraftInfos.FORGE_VERSION.split("-")[1], NoFramework.ModLoader.FORGE);
 
@@ -206,7 +211,7 @@ public class Home extends ContentPanel {
             saver.save();
         }
 
-        return "-Xmx" + val + "M";
+        return "-Xms" + val + "M";
     }
 
     public void setStatus(String status) {

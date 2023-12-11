@@ -1,5 +1,6 @@
 package com.github.NIThree.AquariumLauncher.game;
 
+import com.github.NIThree.AquariumLauncher.Launcher;
 import fr.flowarg.flowupdater.versions.ForgeVersionType;
 public class MinecraftInfos {
     public static final String GAME_VERSION = "1.20.1";
@@ -8,4 +9,7 @@ public class MinecraftInfos {
 
     public static final String CURSE_MODS_LIST_URL = "http://aquarium.ndemare.fr:2010/files/mods_list.json";
     public static final String MODS_LIST_URL = "http://aquarium.ndemare.fr:2010/files/mods_list.json";
+    public static final String SERVER_URL = "46.105.41.246:20006";
+    public static final String SERVER_PORT = "20006";
+    public static final String SERVER_FILE = Launcher.getInstance().getLauncherDir() + "/server.dat";
 }

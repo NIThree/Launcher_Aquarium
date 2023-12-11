@@ -24,7 +24,6 @@ jar {
 }
 
 apply plugin: 'org.openjfx.javafxplugin'
-apply plugin: 'io.github.fvarrui.javapackager.plugin'
 
 group 'com.github.NIThree'
 version '1.0.0'
@@ -63,6 +62,8 @@ application {
 compileJava {
     options.encoding = "UTF-8"
 }
+
+apply plugin: 'io.github.fvarrui.javapackager.plugin'
 
 task packageMyApp(type: io.github.fvarrui.javapackager.gradle.PackageTask, dependsOn: build) {
     mainClass = 'com.github.NIThree.AquariumLauncher.Main'
