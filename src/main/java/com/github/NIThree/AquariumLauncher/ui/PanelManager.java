@@ -32,6 +32,7 @@ public class PanelManager {
         this.stage.setWidth(1280);
         this.stage.setHeight(720);
         this.stage.centerOnScreen();
+        this.stage.setResizable(false);
         this.stage.getIcons().add(new Image("images/icon_48x48.png"));
 
         this.layout = new GridPane();
@@ -44,7 +45,7 @@ public class PanelManager {
 
             TopBar topBar = new TopBar();
             BorderlessScene scene = new BorderlessScene(this.stage, StageStyle.UNDECORATED, this.layout);
-            scene.setResizable(true);
+            scene.setResizable(false);
             scene.setMoveControl(topBar.getLayout());
             scene.removeDefaultCSS();
 

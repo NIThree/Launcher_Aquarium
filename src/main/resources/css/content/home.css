@@ -1,12 +1,12 @@
 .box-pane {
-    -fx-background-color: #eee;
+    -fx-background-color: rgba(205, 245, 253, 0.7);
 }
 
 .play-btn {
     -fx-background-radius: 10px;
     -fx-font-size: 16px;
     -fx-text-fill: #F5F5F5;
-    -fx-background-color: #85AE51;
+    -fx-background-color: rgba(0, 169, 255, 1);
 }
 
 .play-icon {
@@ -14,7 +14,7 @@
 }
 
 .play-btn:hover {
-    -fx-background-color: #98BB6D;
+    -fx-background-color: rgba(137, 207, 243, 1);
 }
 
 .download-progress {

@@ -34,6 +34,7 @@ import java.util.List;
 public class Home extends ContentPanel {
     private final Saver saver = Launcher.getInstance().getSaver();
     GridPane boxPane = new GridPane();
+    GridPane eventContent = new GridPane();
     ProgressBar progressBar = new ProgressBar();
     Label stepLabel = new Label();
     Label fileLabel = new Label();
@@ -57,11 +58,11 @@ public class Home extends ContentPanel {
         rowConstraints.setValignment(VPos.CENTER);
         rowConstraints.setMinHeight(75);
         rowConstraints.setMaxHeight(75);
-        this.layout.getRowConstraints().addAll(rowConstraints, new RowConstraints());
+        this.layout.getRowConstraints().addAll(new RowConstraints(), rowConstraints);
         boxPane.getStyleClass().add("box-pane");
         setCanTakeAllSize(boxPane);
         boxPane.setPadding(new Insets(20));
-        this.layout.add(boxPane, 0, 0);
+        this.layout.add(boxPane, 0, 1);
         this.layout.getStyleClass().add("home-layout");
 
         progressBar.getStyleClass().add("download-progress");
@@ -79,6 +80,11 @@ public class Home extends ContentPanel {
         fileLabel.setTranslateY(20);
         setCenterH(fileLabel);
         setCanTakeAllSize(fileLabel);
+
+        this.layout.add(eventContent, 0, 0);
+        setCenterH(eventContent);
+        setCenterV(eventContent);
+        setCanTakeAllSize(eventContent);
 
         this.showPlayButton();
     }
