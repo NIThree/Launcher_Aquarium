@@ -70,7 +70,7 @@ task packageMyApp(type: io.github.fvarrui.javapackager.gradle.PackageTask, depen
     generateInstaller = true
     platform = io.github.fvarrui.javapackager.model.Platform.windows
     createZipball = true
-    jrePath = file('java')
+    jrePath = file('C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.5.8-hotspot')
     appName = displayName = 'Aquarium Launcher'
     organizationName = 'Syphael'
 

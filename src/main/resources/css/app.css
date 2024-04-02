@@ -48,3 +48,7 @@
 .username-label {
     -fx-text-fill: rgba(0, 169, 255, 1);
 }
+
+.version-label {
+    -fx-text-fill: rgb(255, 255, 255);
+}

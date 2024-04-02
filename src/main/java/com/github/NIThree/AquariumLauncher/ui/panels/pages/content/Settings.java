@@ -7,6 +7,7 @@ import fr.flowarg.materialdesignfontfx.MaterialDesignIconView;
 import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -103,6 +104,30 @@ public class Settings extends ContentPanel {
         comboBox.setTranslateY(130d);
         contentPane.getChildren().add(comboBox);
 
+
+        Label labelOptifine = new Label("Ajouter Optifine au mods?");
+        labelOptifine.getStyleClass().add("settings-labels");
+        setLeft(labelOptifine);
+        setCanTakeAllSize(labelOptifine);
+        setTop(labelOptifine);
+        labelOptifine.setTextAlignment(TextAlignment.LEFT);
+        labelOptifine.setTranslateX(25d);
+        labelOptifine.setTranslateY(170d);
+        contentPane.getChildren().add(labelOptifine);
+
+        CheckBox checkBoxOptifine = new CheckBox("Activer");
+        setLeft(checkBoxOptifine);
+        setCanTakeAllSize(checkBoxOptifine);
+        setTop(checkBoxOptifine);
+        checkBoxOptifine.setTextAlignment(TextAlignment.LEFT);
+        checkBoxOptifine.setTranslateX(25d);
+        checkBoxOptifine.setTranslateY(200d);
+        contentPane.getChildren().add(checkBoxOptifine);
+
+        if (saver.get("optiFine") != null) {
+            checkBoxOptifine.setSelected(Boolean.parseBoolean((saver.get("optiFine"))));
+        }
+
         /*
          * Save Button
          */
@@ -118,6 +143,8 @@ public class Settings extends ContentPanel {
             double _val = Double.parseDouble(comboBox.getValue().replace(" Go", ""));
             _val *= 1024;
             saver.set("maxRam", String.valueOf((int) _val));
+            System.out.println(String.valueOf(checkBoxOptifine.isSelected()));
+            saver.set("optiFine", String.valueOf(checkBoxOptifine.isSelected()));
         });
         contentPane.getChildren().add(saveBtn);
     }

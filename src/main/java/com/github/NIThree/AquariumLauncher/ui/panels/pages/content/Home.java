@@ -9,6 +9,7 @@ import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
 import fr.flowarg.flowupdater.download.json.CurseFileInfo;
 import fr.flowarg.flowupdater.download.json.Mod;
+import fr.flowarg.flowupdater.download.json.OptiFineInfo;
 import fr.flowarg.flowupdater.utils.ModFileDeleter;
 import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
 import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
@@ -31,7 +32,6 @@ import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class Home extends ContentPanel {
@@ -153,14 +153,117 @@ public class Home extends ContentPanel {
                     .build();
 
             List<CurseFileInfo> curseMods = CurseFileInfo.getFilesFromJson(MinecraftInfos.CURSE_MODS_LIST_URL);
+            /*List<CurseFileInfo> curseMods = new ArrayList<>();
+            // Alex's Mobs - alexsmobs-1.22.5
+            curseMods.add(new CurseFileInfo(426558, 4618074));
+            // Aquaculture 2 - Aquaculture-1.20.1-2.5.0.jar
+            curseMods.add(new CurseFileInfo(60028, 4608454));
+            // Architectury API (Fabric/Forge/NeoForge) - [Forge 1.20(.1)] v9.1.12
+            curseMods.add(new CurseFileInfo(419699, 4663010));
+            // Artifacts - artifacts-1.20.1-7.0.2.jar
+            curseMods.add(new CurseFileInfo(312353, 4647528));
+            // Bagus Lib - Baguslib-1.20.1-3.4.0.jar
+            curseMods.add(new CurseFileInfo(866533, 4680060));
+            // Biomes O' Plenty - Biomes O' Plenty 1.20.1-18.0.0.595
+            curseMods.add(new CurseFileInfo(220318, 4683058));
+            // Citadel - citadel-2.4.2-1.20.1
+            curseMods.add(new CurseFileInfo(331936, 4613231));
+            // Cloth Config API (Fabric/Forge/NeoForge) - [Forge 1.20(.1)] v11.1.106
+            curseMods.add(new CurseFileInfo(348521, 4633444));
+            // Corn Delight[Forge] - corn_delight-1.0.3-1.20.1.jar
+            curseMods.add(new CurseFileInfo(577805, 4640390));
+            // Corpse - [1.20.1] Corpse 1.20.1-1.0.5
+            curseMods.add(new CurseFileInfo(316582, 4678972));
+            // Create - Create 1.20.1 v0.5.1e
+            curseMods.add(new CurseFileInfo(328085, 4762216));
+            // Cristel Lib - cristellib-forge-1.1.0.jar
+            curseMods.add(new CurseFileInfo(856996, 4582743));
+            // Curios API (Forge/NeoForge) - curios-forge-5.2.0-beta.3+1.20.1.jar
+            curseMods.add(new CurseFileInfo(309927, 4583413));
+            // [Let's Do] API - API - 1.2.6 - FORGE - 1.20.x
+            curseMods.add(new CurseFileInfo(864599, 4678895));
+            // Doggy Talents Next - DoggyTalentsNext-1.20.1-1.16.2.jar
+            curseMods.add(new CurseFileInfo(694492, 4748385));
+            // When Dungeons Arise - Forge! - DungeonsArise-1.20.1-2.1.56.1-beta.jar
+            curseMods.add(new CurseFileInfo(442508, 4607317));
+            // Farmer's Delight - Farmer's Delight 1.2.3 - 1.20.1
+            curseMods.add(new CurseFileInfo(398521, 4679319));
+            // Hunter'sReturn - hunterillager-1.20.1-10.1.1.jar
+            curseMods.add(new CurseFileInfo(318857, 4642810));
+            // Immersive Paintings [Fabric/Forge] - [Forge 1.20.1] Immersive Paintings - 0.6.3
+            curseMods.add(new CurseFileInfo(639584, 4679310));
+            // Incendium - Incendium 1.20.1 v5.3.1
+            curseMods.add(new CurseFileInfo(591388, 4655668));
+            // JourneyMap - journeymap-1.20.1-5.9.12-forge
+            curseMods.add(new CurseFileInfo(32274, 4655325));
+            // L_Ender 's Cataclysm - L_Ender's Cataclysm 1.29 - 1.20.1
+            curseMods.add(new CurseFileInfo(551586, 4687114));
+            // [Let's Do] Vinery - Vinery - 1.4.3 - FORGE - 1.20.1
+            curseMods.add(new CurseFileInfo(704465, 4680504));
+            // Moonlight Lib - moonlight-1.20-2.5.15-forge.jar
+            curseMods.add(new CurseFileInfo(499980, 4618451));
+            // Mysterious Mountain Lib - mysterious_mountain_lib-1.2.7-1.20.jar
+            curseMods.add(new CurseFileInfo(368098, 4621552));
+            // Nullscape - Nullscape 1.20.1 v1.2.1
+            curseMods.add(new CurseFileInfo(570354, 4630978));
+            // Sophisticated Backpacks - sophisticatedbackpacks-1.20.1-3.18.56.890.jar
+            curseMods.add(new CurseFileInfo(422301, 4637294));
+            // Sophisticated Core - sophisticatedcore-1.20.1-0.5.83.395.jar
+            curseMods.add(new CurseFileInfo(618298, 4668695));
+            // Structory - Structory 1.20.1 v1.3.2
+            curseMods.add(new CurseFileInfo(636540, 4630983));
+            // TerraBlender (Forge) - TerraBlender Forge 1.20.1-3.0.0.165
+            curseMods.add(new CurseFileInfo(563928, 4608122));
+            // Terralith - Terralith 1.20.1 v2.4.3
+            curseMods.add(new CurseFileInfo(513688, 4657064));
+            // Towns and Towers - (1.19.3/4+1.20.x) Towns and Towers v1.11 (Fabric/Forge/Quilt)
+            curseMods.add(new CurseFileInfo(626761, 4593117));
+            // Underground Villages - UndergroundVillages-1.20.1-2.0.0.jar
+            curseMods.add(new CurseFileInfo(606989, 4614916));
+            // YUNG's API (Forge) - [1.20] YUNG's API v4.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(421850, 4741396));
+            // YUNG's Better Desert Temples (Forge) - [1.20] YUNG's Better Desert Temples v3.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(631016, 4741450));
+            // YUNG's Better Dungeons (Forge) - [1.20] YUNG's Better Dungeons v4.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(510089, 4741446));
+            // YUNG's Better Mineshafts (Forge) - [1.20] YUNG's Better Mineshafts v4.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(389665, 4741419));
+            // YUNG's Better Ocean Monuments (Forge) - [1.20] YUNG's Better Ocean Monuments v3.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(689238, 4741465));
+            // YUNG's Better Strongholds (Forge) - [1.20] YUNG's Better Strongholds v4.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(465575, 4741439));
+            // YUNG's Better Witch Huts (Forge) - [1.20] YUNG's Better Witch Huts v3.0.1 (Forge)
+            curseMods.add(new CurseFileInfo(631401, 4741480));
+
+            //
+            //curseMods.add(new CurseFileInfo(419699, 4663010));*/
+
             List<Mod> mods = Mod.getModsFromJson(MinecraftInfos.MODS_LIST_URL);
 
-            final AbstractForgeVersion forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
-                    .withForgeVersion(MinecraftInfos.FORGE_VERSION)
-                    .withCurseMods(curseMods)
-                    .withMods(mods)
-                    .withFileDeleter(new ModFileDeleter(true))
-                    .build();
+            /*boolean setOptifine = false;
+
+            if (saver.get("optiFine") != null) {
+                setOptifine = Boolean.parseBoolean((saver.get("optiFine")));
+            }*/
+
+            final AbstractForgeVersion forge ;
+
+            //if (setOptifine) {
+                forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
+                        .withForgeVersion(MinecraftInfos.FORGE_VERSION)
+                        .withCurseMods(curseMods)
+                        .withMods(mods)
+                        .withFileDeleter(new ModFileDeleter(true))
+                        .build();
+            /*} else {
+                forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
+                        .withForgeVersion(MinecraftInfos.FORGE_VERSION)
+                        .withCurseMods(curseMods)
+                        //.withMods(mods)
+                        .withFileDeleter(new ModFileDeleter(true))
+                        .build();
+
+            }*/
 
             final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                     .withVanillaVersion(vanillaVersion)

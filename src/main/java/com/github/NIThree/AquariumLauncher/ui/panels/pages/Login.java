@@ -1,6 +1,7 @@
 package com.github.NIThree.AquariumLauncher.ui.panels.pages;
 
 import com.github.NIThree.AquariumLauncher.Launcher;
+import com.github.NIThree.AquariumLauncher.game.MinecraftInfos;
 import com.github.NIThree.AquariumLauncher.ui.PanelManager;
 import com.github.NIThree.AquariumLauncher.ui.panel.Panel;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthenticator;
@@ -78,6 +79,18 @@ public class Login extends Panel {
         msLoginBtn.setOnMouseClicked(e -> this.authenticateMS());
 
         this.layout.getChildren().addAll(loginWithLabel, msLoginBtn);
+
+        // Show Version
+        Label versionLabel = new Label(MinecraftInfos.LAUNCHER_VERSION);
+        setCanTakeAllSize(versionLabel);
+        setCenterV(versionLabel);
+        setCenterH(versionLabel);
+        versionLabel.setFont(Font.font(versionLabel.getFont().getFamily(), FontWeight.BOLD, FontPosture.REGULAR, 14d));
+        versionLabel.getStyleClass().add("version-label");
+        versionLabel.setTranslateY(320d);
+        versionLabel.setTranslateX(630d);
+        versionLabel.setMaxWidth(100d);
+        this.layout.getChildren().add(versionLabel);
     }
 
     public void authenticateMS() {

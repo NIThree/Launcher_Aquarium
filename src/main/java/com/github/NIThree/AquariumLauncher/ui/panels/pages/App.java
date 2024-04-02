@@ -1,6 +1,7 @@
 package com.github.NIThree.AquariumLauncher.ui.panels.pages;
 
 import com.github.NIThree.AquariumLauncher.Launcher;
+import com.github.NIThree.AquariumLauncher.game.MinecraftInfos;
 import com.github.NIThree.AquariumLauncher.ui.PanelManager;
 import com.github.NIThree.AquariumLauncher.ui.panel.Panel;
 import com.github.NIThree.AquariumLauncher.ui.panels.pages.content.ContentPanel;
@@ -58,6 +59,18 @@ public class App extends Panel {
         columnConstraints.setMinWidth(300);
         columnConstraints.setMaxWidth(300);
         this.layout.getColumnConstraints().addAll(columnConstraints, new ColumnConstraints());
+
+        // Show Version
+        Label versionLabel = new Label(MinecraftInfos.LAUNCHER_VERSION);
+        setCanTakeAllSize(versionLabel);
+        setCenterV(versionLabel);
+        setCenterH(versionLabel);
+        versionLabel.setFont(Font.font(versionLabel.getFont().getFamily(), FontWeight.BOLD, FontPosture.REGULAR, 14d));
+        versionLabel.getStyleClass().add("version-label");
+        versionLabel.setTranslateY(260d);
+        versionLabel.setTranslateX(480d);
+        versionLabel.setMaxWidth(100d);
+        this.layout.add(versionLabel, 1, 0);
 
         // Nav content
         this.layout.add(navContent, 1, 0);
