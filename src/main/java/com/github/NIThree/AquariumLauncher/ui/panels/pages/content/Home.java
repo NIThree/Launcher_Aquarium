@@ -3,6 +3,7 @@ package com.github.NIThree.AquariumLauncher.ui.panels.pages.content;
 import com.github.NIThree.AquariumLauncher.Launcher;
 import com.github.NIThree.AquariumLauncher.game.MinecraftInfos;
 import com.github.NIThree.AquariumLauncher.ui.PanelManager;
+import com.github.NIThree.AquariumLauncher.ui.panels.pages.App;
 import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
@@ -184,16 +185,11 @@ public class Home extends ContentPanel {
                 System.err.println("Erreur lors du téléchargement : " + e.getMessage());
             }
 
-
-
             final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
                     .withName(MinecraftInfos.GAME_VERSION)
                     .build();
 
             List<CurseFileInfo> curseMods = CurseFileInfo.getFilesFromJson(MinecraftInfos.CURSE_MODS_LIST_URL);
-            //curseMods.add(new CurseFileInfo(256256, 4840340));
-
-            //curseMods.add(new CurseFileInfo(238222, 5101366));
 
             List<Mod> mods = Mod.getModsFromJson(MinecraftInfos.MODS_LIST_URL);
 
@@ -205,22 +201,12 @@ public class Home extends ContentPanel {
 
             final AbstractForgeVersion forge ;
 
-            //if (setOptifine) {
-                forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
-                        .withForgeVersion(MinecraftInfos.FORGE_VERSION)
-                        .withCurseMods(curseMods)
-                        .withMods(mods)
-                        .withFileDeleter(new ModFileDeleter(true))
-                        .build();
-            /*} else {
-                forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
-                        .withForgeVersion(MinecraftInfos.FORGE_VERSION)
-                        .withCurseMods(curseMods)
-                        //.withMods(mods)
-                        .withFileDeleter(new ModFileDeleter(true))
-                        .build();
-
-            }*/
+            forge = new ForgeVersionBuilder(MinecraftInfos.FORGE_VERSION_TYPE)
+                    .withForgeVersion(MinecraftInfos.FORGE_VERSION)
+                    .withCurseMods(curseMods)
+                    .withMods(mods)
+                    .withFileDeleter(new ModFileDeleter(true))
+                    .build();
 
             final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
                     .withVanillaVersion(vanillaVersion)
@@ -249,17 +235,17 @@ public class Home extends ContentPanel {
             noFramework.getAdditionalArgs().addAll(Arrays.asList("--quickPlayMultiplayer", MinecraftInfos.SERVER_URL));
             noFramework.getAdditionalVmArgs().add(this.getRamArgsFromSaver());
 
-
             Process p = noFramework.launch(gameVersion, MinecraftInfos.FORGE_VERSION.split("-")[1], NoFramework.ModLoader.FORGE);
 
             Platform.runLater(() -> {
                 try {
                     p.waitFor();
-                    Platform.exit();
                 } catch (InterruptedException e) {
                     Launcher.getInstance().getLogger().printStackTrace(e);
                 }
             });
+            Platform.runLater(this::showPlayButton);
+            Platform.runLater(() -> this.panelManager.showPanel(new App()));
         } catch (Exception e) {
             Launcher.getInstance().getLogger().printStackTrace(e);
         }

@@ -104,7 +104,7 @@ public class Settings extends ContentPanel {
         comboBox.setTranslateY(130d);
         contentPane.getChildren().add(comboBox);
 
-
+/*
         Label labelOptifine = new Label("Ajouter Optifine au mods?");
         labelOptifine.getStyleClass().add("settings-labels");
         setLeft(labelOptifine);
@@ -127,7 +127,7 @@ public class Settings extends ContentPanel {
         if (saver.get("optiFine") != null) {
             checkBoxOptifine.setSelected(Boolean.parseBoolean((saver.get("optiFine"))));
         }
-
+*/
         /*
          * Save Button
          */
@@ -143,8 +143,8 @@ public class Settings extends ContentPanel {
             double _val = Double.parseDouble(comboBox.getValue().replace(" Go", ""));
             _val *= 1024;
             saver.set("maxRam", String.valueOf((int) _val));
-            System.out.println(String.valueOf(checkBoxOptifine.isSelected()));
-            saver.set("optiFine", String.valueOf(checkBoxOptifine.isSelected()));
+            //System.out.println(String.valueOf(checkBoxOptifine.isSelected()));
+            //saver.set("optiFine", String.valueOf(checkBoxOptifine.isSelected()));
         });
         contentPane.getChildren().add(saveBtn);
     }

@@ -12,7 +12,7 @@ public class MinecraftInfos {
     public static final String SERVER_URL = "46.105.41.246:20006";
     public static final String SERVER_FILE = "http://aquarium.ndemare.fr/servers.dat";
 
-    public static final String LAUNCHER_VERSION = "v0.0.2";
+    public static final String LAUNCHER_VERSION = "v0.0.3";
 
     public static Boolean Update = false;
 }
