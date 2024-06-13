@@ -1,8 +1,10 @@
 package com.github.NIThree.AquariumLauncher;
 
+import com.github.NIThree.AquariumLauncher.game.MinecraftInfos;
 import com.github.NIThree.AquariumLauncher.ui.PanelManager;
 import com.github.NIThree.AquariumLauncher.ui.panels.pages.App;
 import com.github.NIThree.AquariumLauncher.ui.panels.pages.Login;
+
 import fr.flowarg.flowlogger.ILogger;
 import fr.flowarg.flowlogger.Logger;
 import fr.litarvan.openauth.microsoft.MicrosoftAuthResult;
@@ -18,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import static com.github.NIThree.AquariumLauncher.AutoUpdater.*;
+
 
 public class Launcher extends Application {
     private static Launcher instance;
@@ -55,6 +60,18 @@ public class Launcher extends Application {
         this.logger.info("Starting launcher");
         this.panelManager = new PanelManager(this, stage);
         this.panelManager.init();
+
+        try {
+            if (checkForUpdates()) {
+               MinecraftInfos.Update = true;
+            } else {
+                System.out.println("No updates available.");
+                this.logger.info("No updates available.");
+                MinecraftInfos.Update = false;
+            }
+        } catch (IOException e) {
+            Launcher.getInstance().getLogger().printStackTrace(e);
+        }
 
         if (this.isUserAlreadyLoggedIn()) {
             logger.info("Hello " + authInfos.getUsername());

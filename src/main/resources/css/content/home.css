@@ -41,3 +41,25 @@
     -fx-text-alignment: center;
     -fx-text-fill: rgb(10, 12, 12);
 }
+.update-btn {
+    -fx-border-width: 0 0 0 10px;
+    -fx-font-size: 18px;
+    -fx-text-alignment: left;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-max-width: 250px;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(0, 169, 255, 1);
+}
+
+.update-btn.button {
+    -fx-alignment: center-left;
+}
+
+.update-btn:hover {
+    -fx-background-color: rgba(137, 207, 243, 1);
+}
+
+.update-btn.active {
+    -fx-background-color: rgba(137, 207, 243, 1);
+}

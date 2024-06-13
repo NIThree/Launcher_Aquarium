@@ -1,10 +1,206 @@
 {
   "curseFiles": [
     {
-      // Alex's Mob 1.22.5
+      // Alex's Mobs - alexsmobs-1.22.5
       "projectID": 426558,
       "fileID": 4618074
+    },
+	{
+      // Aquaculture 2 - Aquaculture-1.20.1-2.5.0.jar
+      "projectID": 60028,
+      "fileID": 4608454
+    },
+	{
+      // Architectury API (Fabric/Forge/NeoForge) - [Forge 1.20(.1)] v9.1.12
+      "projectID": 419699,
+      "fileID": 4663010
+    },
+	{
+      // Artifacts - artifacts-1.20.1-7.0.2.jar
+      "projectID": 312353,
+      "fileID": 4647528
+    },
+	{
+      // Bagus Lib - Baguslib-1.20.1-3.4.0.jar
+      "projectID": 866533,
+      "fileID": 4680060
+    },
+	{
+      // Biomes O' Plenty - Biomes O' Plenty 1.20.1-18.0.0.595
+      "projectID": 220318,
+      "fileID": 4683058
+    },
+	{
+      // Citadel - citadel-2.4.2-1.20.1
+      "projectID": 331936,
+      "fileID": 4613231
+    },
+	{
+      // Cloth Config API (Fabric/Forge/NeoForge) - [Forge 1.20(.1)] v11.1.106
+      "projectID": 348521,
+      "fileID": 4633444
+    },
+	{
+      // Corn Delight[Forge] - corn_delight-1.0.3-1.20.1.jar
+      "projectID": 577805,
+      "fileID": 4640390
+    },
+	{
+      // Corpse - [1.20.1] Corpse 1.20.1-1.0.5
+      "projectID": 316582,
+      "fileID": 4678972
+    },
+	{
+      // Create - Create 1.20.1 v0.5.1e
+      "projectID": 328085,
+      "fileID": 4762216
+    },
+	{
+      // Cristel Lib - cristellib-forge-1.1.0.jar
+      "projectID": 856996,
+      "fileID": 4582743
+    },
+	{
+      // Curios API (Forge/NeoForge) - curios-forge-5.2.0-beta.3+1.20.1.jar
+      "projectID": 309927,
+      "fileID": 4583413
+    },
+	{
+      // [Let's Do] API - API - 1.2.6 - FORGE - 1.20.x
+      "projectID": 864599,
+      "fileID": 4678895
+    },
+	{
+      // Doggy Talents Next - DoggyTalentsNext-1.20.1-1.16.2.jar
+      "projectID": 694492,
+      "fileID": 4748385
+    },
+	{
+      // When Dungeons Arise - Forge! - DungeonsArise-1.20.1-2.1.56.1-beta.jar
+      "projectID": 442508,
+      "fileID": 4607317
+    },
+	{
+      // Farmer's Delight - Farmer's Delight 1.2.3 - 1.20.1
+      "projectID": 398521,
+      "fileID": 4679319
+    },
+	{
+      // Hunter'sReturn - hunterillager-1.20.1-10.1.1.jar
+      "projectID": 318857,
+      "fileID": 4642810
+    },
+	{
+      // Immersive Paintings [Fabric/Forge] - [Forge 1.20.1] Immersive Paintings - 0.6.3
+      "projectID": 639584,
+      "fileID": 4679310
+    },
+	{
+      // Incendium - Incendium 1.20.1 v5.3.1
+      "projectID": 591388,
+      "fileID": 4655668
+    },
+	{
+      // JourneyMap - journeymap-1.20.1-5.9.12-forge
+      "projectID": 32274,
+      "fileID": 4655325
+    },
+	{
+      // L_Ender 's Cataclysm - L_Ender's Cataclysm 1.29 - 1.20.1
+      "projectID": 551586,
+      "fileID": 4687114
+    },
+	{
+      // [Let's Do] Vinery - Vinery - 1.4.3 - FORGE - 1.20.1
+      "projectID": 704465,
+      "fileID": 4680504
+    },
+	{
+      // Moonlight Lib - moonlight-1.20-2.5.15-forge.jar
+      "projectID": 499980,
+      "fileID": 4618451
+    },
+	{
+      // Mysterious Mountain Lib - mysterious_mountain_lib-1.2.7-1.20.jar
+      "projectID": 368098,
+      "fileID": 4621552
+    },
+	{
+      // Nullscape - Nullscape 1.20.1 v1.2.1
+      "projectID": 570354,
+      "fileID": 4630978
+    },
+	{
+      // Sophisticated Backpacks - sophisticatedbackpacks-1.20.1-3.18.56.890.jar
+      "projectID": 422301,
+      "fileID": 4637294
+    },
+	{
+      // Sophisticated Core - sophisticatedcore-1.20.1-0.5.83.395.jar
+      "projectID": 618298,
+      "fileID": 4668695
+    },
+	{
+      // Structory - Structory 1.20.1 v1.3.2
+      "projectID": 636540,
+      "fileID": 4630983
+    },
+	{
+      // TerraBlender (Forge) - TerraBlender Forge 1.20.1-3.0.0.165
+      "projectID": 563928,
+      "fileID": 4608122
+    },
+	{
+      // Terralith - Terralith 1.20.1 v2.4.3
+      "projectID": 513688,
+      "fileID": 4657064
+    },
+	{
+      // Towns and Towers - (1.19.3/4+1.20.x) Towns and Towers v1.11 (Fabric/Forge/Quilt)
+      "projectID": 626761,
+      "fileID": 4593117
+    },
+	{
+      // Underground Villages - UndergroundVillages-1.20.1-2.0.0.jar
+      "projectID": 606989,
+      "fileID": 4614916
+    },
+	{
+      // YUNG's API (Forge) - [1.20] YUNG's API v4.0.1 (Forge)
+      "projectID": 421850,
+      "fileID": 4741396
+    },
+	{
+      // YUNG's Better Desert Temples (Forge) - [1.20] YUNG's Better Desert Temples v3.0.1 (Forge)
+      "projectID": 631016,
+      "fileID": 4741450
+    },
+	{
+      // YUNG's Better Dungeons (Forge) - [1.20] YUNG's Better Dungeons v4.0.1 (Forge)
+      "projectID": 510089,
+      "fileID": 4741446
+    },
+	{
+      // YUNG's Better Mineshafts (Forge) - [1.20] YUNG's Better Mineshafts v4.0.1 (Forge)
+      "projectID": 389665,
+      "fileID": 4741419
+    },
+	{
+      // YUNG's Better Ocean Monuments (Forge) - [1.20] YUNG's Better Ocean Monuments v3.0.1 (Forge)
+      "projectID": 689238,
+      "fileID": 4741465
+    },
+	{
+      //YUNG's Better Strongholds (Forge) - [1.20] YUNG's Better Strongholds v4.0.1 (Forge)
+      "projectID": 465575,
+      "fileID": 4741439
+    },
+	{
+      // YUNG's Better Witch Huts (Forge) - [1.20] YUNG's Better Witch Huts v3.0.1 (Forge)
+      "projectID": 631401,
+      "fileID": 4741480
     }
   ],
-  "mods": []
+  "mods": [
+  ]
 }

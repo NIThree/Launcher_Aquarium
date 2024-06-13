@@ -11,7 +11,6 @@ import fr.flowarg.materialdesignfontfx.MaterialDesignIcon;
 import fr.flowarg.materialdesignfontfx.MaterialDesignIconView;
 import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,11 +18,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 public class App extends Panel {
     GridPane sidemenu = new GridPane();
@@ -32,7 +29,7 @@ public class App extends Panel {
     Node activeLink = null;
     ContentPanel currentPage = null;
 
-    Button homeBtn, settingsBtn, logoutBtn;
+    Button homeBtn, settingsBtn, logoutBtn, UpdateBtn;
 
     Saver saver = Launcher.getInstance().getSaver();
 
