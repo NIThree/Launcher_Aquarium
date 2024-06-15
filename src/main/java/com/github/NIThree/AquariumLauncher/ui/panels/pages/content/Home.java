@@ -22,12 +22,21 @@ import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.concurrent.Worker;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.nio.file.*;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -50,7 +59,7 @@ public class Home extends ContentPanel {
     String fileName = "servers.dat";
     String appDataDirectory = System.getenv("APPDATA"); // Dossier %appdata%
     String destinationDirectory = Paths.get(appDataDirectory, ".Aquarium").toString(); // Sous-dossier .Aquarium dans %appdata%
-
+    Label playerCountLabel = new Label();
 
     @Override
     public String getName() {
@@ -119,7 +128,106 @@ public class Home extends ContentPanel {
             this.layout.add(UpdateBtn, 0, 0);
         }
 
+        // Créer un WebView
+        WebView webView = new WebView();
+        webView.setMaxHeight(600);
+        webView.setMaxWidth(400);
+
+        // Obtenir le moteur de rendu WebEngine
+        WebEngine webEngine = webView.getEngine();
+
+        // Ajouter un label de chargement
+        Label loadingLabel = new Label("Loading...");
+
+        // Ajouter des écouteurs d'événements
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                loadingLabel.setText("");
+            } else if (newState == Worker.State.RUNNING) {
+                loadingLabel.setText("Loading...");
+            } else if (newState == Worker.State.FAILED) {
+                loadingLabel.setText("Failed to load page");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("An error occurred");
+                alert.setContentText("Failed to load the page.");
+                alert.showAndWait();
+            }
+        });
+
+        // Charger une page web
+        webEngine.load("https://aquarium.ndemare.fr/version_launcher/versions.html");
+
+        // Création d'un conteneur pour le WebView et le label de joueur
+        GridPane container = new GridPane();
+        container.getStyleClass().add("home-container");
+
+        // Ajout du WebView à gauche
+        container.add(webView, 0, 0);
+
+        // Ajout du label de joueur à droite
+        playerCountLabel.getStyleClass().add("player-info");
+        playerCountLabel.setTranslateY(-270d);
+        playerCountLabel.setTranslateX(350d);
+        updatePlayerCount(); // Mettre à jour le nombre de joueurs connectés initialement
+        container.add(playerCountLabel, 1, 0);
+
+        // Ajout du conteneur à la scène principale
+        this.layout.add(container, 0, 0);
+
+        // Écouteur pour mettre à jour le nombre de joueurs toutes les 10 secondes
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(10000); // Mettre à jour toutes les 10 secondes
+                    updatePlayerCount();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
         this.showPlayButton();
+    }
+
+    private void updatePlayerCount() {
+        String serverAddress = MinecraftInfos.SERVER_URL; // Adresse du serveur Minecraft
+
+        try {
+            URL url = new URL("https://api.mcsrvstat.us/2/" + serverAddress);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+
+            JSONObject json = new JSONObject(response.toString());
+
+            if (json.has("players") && json.getJSONObject("players").has("online")) {
+                int onlinePlayers = json.getJSONObject("players").getInt("online");
+                int maxPlayers = json.getJSONObject("players").getInt("max");
+
+                // Mettre à jour l'affichage du nombre de joueurs connectés
+                Platform.runLater(() -> {
+                    playerCountLabel.setText("Joueurs connectés : " + onlinePlayers + "/" + maxPlayers);
+                });
+            } else {
+                Platform.runLater(() -> {
+                    playerCountLabel.setText("Impossible de récupérer les informations sur le nombre de joueurs.");
+                });
+            }
+
+        } catch (IOException e) {
+            Platform.runLater(() -> {
+                playerCountLabel.setText("Erreur lors de la récupération des informations.");
+                e.printStackTrace();
+            });
+        }
     }
 
     private void showPlayButton() {
@@ -190,6 +298,10 @@ public class Home extends ContentPanel {
                     .build();
 
             List<CurseFileInfo> curseMods = CurseFileInfo.getFilesFromJson(MinecraftInfos.CURSE_MODS_LIST_URL);
+
+            curseMods.add(new CurseFileInfo(256256, 4840340));
+
+            curseMods.add(new CurseFileInfo(238222, 5101366));
 
             List<Mod> mods = Mod.getModsFromJson(MinecraftInfos.MODS_LIST_URL);
 

@@ -63,3 +63,20 @@
 .update-btn.active {
     -fx-background-color: rgba(137, 207, 243, 1);
 }
+
+.player-info {
+    -fx-font-size: 18px;
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-background-color: #1e90ff; /* Couleur de fond bleu */
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-border-color: #1e90ff; /* Couleur de la bordure */
+}
+
+.web-view {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 600px;
+    -fx-border-width: 1px;
+    -fx-border-color: #cccccc;
+}

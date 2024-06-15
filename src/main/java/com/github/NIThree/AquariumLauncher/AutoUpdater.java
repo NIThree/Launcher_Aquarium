@@ -88,8 +88,8 @@ public class AutoUpdater {
                 + "powershell -Command \"Expand-Archive -Path Aquarium_Launcher.zip -DestinationPath . -Force\"\n\n"
                 + "echo Update complete. Restarting application...\n"
                 + ":: Start the application\n"
-                + "start \"\" \"Aquarium Launcher.exe\"\n"
-                + "exit\n";
+                + "start \"\" \"Aquarium Launcher.exe\"\n";
+                //+ "exit\n";
 
         Files.write(updateScriptPath, scriptContent.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
