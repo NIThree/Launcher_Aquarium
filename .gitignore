@@ -26,6 +26,7 @@ out/
 .springBeans
 .sts4-cache
 bin/
+libs/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
@@ -41,3 +42,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/gradle/
+/jre/
+/libs/
+/gradle/
+/jre/
+/libs/
